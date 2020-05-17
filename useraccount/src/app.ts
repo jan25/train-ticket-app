@@ -1,5 +1,10 @@
 import express from "express";
-import { handleLogin, getProfile, updateProfile } from "./handler";
+import {
+  handleLogin,
+  getProfile,
+  updateProfile,
+  createNewUser,
+} from "./handler";
 
 const PORT = 3000;
 
@@ -8,7 +13,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/radio", (req, res) => {
-  res.send("Radio check!!");
+  res.send("Radio check!");
+});
+
+app.post("/api/register", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
+  const phone = req.body.phone;
+
+  if (typeof email === "undefined" || typeof password === "undefined") {
+    res.sendStatus(400).send("Email and password must be supplied.");
+  } else {
+    const result = createNewUser({
+      name,
+      email,
+      password,
+      phone,
+    });
+    if (!result.ok) {
+      res.status(400).send(result.errorMessage);
+    } else {
+      res.json(result.data);
+    }
+  }
 });
 
 app.post("/api/login", (req, res) => {
@@ -53,4 +81,4 @@ app.post("/api/users/:userId/profile", (req, res) => {
   res.json(result.data);
 });
 
-app.listen(PORT, (err) => console.log("Server started on 3000"));
+app.listen(PORT, "0.0.0.0", (err) => console.log("Server started on 3000"));

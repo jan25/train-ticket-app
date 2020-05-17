@@ -2,6 +2,10 @@
 
 ### Endpoints
 
+- `POST /api/register`
+
+  - Creates new user account
+
 - `POST /api/login`
 
   - Verifies email, password combination
@@ -13,4 +17,5 @@
   - Returns user details for userID
 
 - `POST /api/users/{userID}/profile`
+
   - Modifies and returns user details for userID

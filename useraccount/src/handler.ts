@@ -5,8 +5,8 @@ interface ReturnVal {
 }
 
 interface UserProfile {
-  userId: string;
-  name: string;
+  userId?: string;
+  name?: string;
   email: string;
   phone?: string;
   password?: string;
@@ -48,7 +48,13 @@ export let getProfile = (userId: string): ReturnVal => {
 };
 
 export let updateProfile = (profile: UserProfile): ReturnVal => {
-  console.log(profile);
+  return {
+    ok: true,
+    data: profile,
+  };
+};
+
+export let createNewUser = (profile: UserProfile): ReturnVal => {
   return {
     ok: true,
     data: profile,
