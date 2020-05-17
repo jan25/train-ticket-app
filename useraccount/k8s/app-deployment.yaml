@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: useraccount-deployment
+  labels:
+    app: useraccount
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: useraccount
+  template:
+    metadata:
+      labels:
+        app: useraccount
+    spec:
+      containers:
+        - name: useraccount
+          image: useraccount:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
